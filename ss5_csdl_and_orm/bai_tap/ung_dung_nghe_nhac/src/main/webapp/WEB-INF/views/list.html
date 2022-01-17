@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Songs list</h3>
+<p>
+    <a th:href="@{/create}">
+        Add new song
+    </a>
+</p>
+
+<p th:text="${messInsert}" style="color: coral"></p>
+<p th:text="${messUpdate}" style="color: coral"></p>
+<p th:text="${messRemove}" style="color: coral"></p>
+<!--<p th:text="messRemove"></p>-->
+<table id="tableList">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Singer</th>
+        <th>Kind of music</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="song : ${songList}">
+        <td th:text="${song.getId()}"></td>
+        <td th:text="${song.getName()}"></td>
+        <td th:text="${song.getSinger()}"></td>
+        <td th:text="${song.getKindOfMusic()}"></td>
+        <td><a th:href="@{/{id}/edit(id=${song.getId()})}">edit</a></td>
+        <td><a th:href="@{/{id}/delete(id=${song.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

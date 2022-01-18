@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="/layout :: head">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Songs list</h3>
+<p>
+    <a th:href="@{/blog/create}">
+        Add new blog
+    </a>
+</p>
+
+<p th:text="${messInsert}" style="color: coral"></p>
+<!--<p th:text="${messUpdate}" style="color: coral"></p>-->
+<!--<p th:text="${messRemove}" style="color: coral"></p>-->
+<!--<p th:text="messRemove"></p>-->
+<table id="tableList">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Writter</th>
+        <th>Summary</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog : ${blogList}">
+        <td th:text="${blog.getId()}"></td>
+        <td th:text="${blog.getName()}"></td>
+        <td th:text="${blog.getWriter()}"></td>
+        <td th:text="${blog.getSummary()}"></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${blog.getId()})}">edit</a></td>
+        <td><a th:href="@{/blog/{id}/delete(id=${blog.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<!--<footer th:replace="/layout :: footer"></footer>-->
+</body>
+</html>

@@ -28,8 +28,16 @@ public class SongRepositoryImpl implements ISongRepository {
         try {
             session = ConnectionUtil.sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.save(song);
-            session.saveOrUpdate(song);
+            if (song.getId() == null){
+                session.save(song);
+            }else {
+                Song song1 = findById(song.getId());
+                song1.setId(song.getId());
+                song1.setName(song.getName());
+                song1.setSinger(song.getSinger());
+                song1.setKindOfMusic(song.getKindOfMusic());
+                session.saveOrUpdate(song1);
+            }
             transaction.commit();
         } catch (Exception e){
             if (transaction != null){

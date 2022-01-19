@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Blog list</h3>
+<p>
+    <a th:href="@{/blog/create}">
+        Add new blog
+    </a>
+</p>
+<p>
+    <a th:href="@{/blog/listCategory}">
+        Manager Category Blog
+    </a>
+</p>
+
+<form action="/blog">
+    <label>Search by name</label>
+    <input type="text" name="keySearch" placeholder="Enter name to search" style="width: 25%">
+    <input type="submit" value="Search" style="width: 100px;">
+</form>
+<form action="/blog/">
+    <label>Filter by category</label>
+    <select name="cateId" style="width: 25%" onchange="this.form.submit()">
+        <option>--Choose Category</option>
+        <th:block th:each="category : ${categoryList}" >
+            <option th:value="${category.id}" th:text="${category.name}"></option>
+        </th:block>
+    </select>
+</form>
+
+<!--<p th:text="${messInsert}" style="color: coral"></p>-->
+<!--<p th:text="${messUpdate}" style="color: coral"></p>-->
+<!--<p th:text="${messRemove}" style="color: coral"></p>-->
+
+<table id="tableList">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Writter</th>
+        <th>Summary</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog : ${blogList}">
+        <td th:text="${blog.getId()}"></td>
+        <td th:text="${blog.getName()}"></td>
+        <td th:text="${blog.getCategory().getName()}"></td>
+        <td th:text="${blog.getWriter()}"></td>
+        <td th:text="${blog.getSummary()}"></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${blog.getId()})}">edit</a></td>
+        <td><a th:href="@{/blog/{id}/delete(id=${blog.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <a th:href="@{'/blog'(page=${blogList.number - 1}, keySearch = ${keySearch}, cateId = ${cateId})}"
+        th:if="${blogList.hasPrevious()}">Previos</a>
+    <span th:text="${blogList.number + 1}"></span> / <span th:text="${blogList.totalPages}"></span>
+    <a th:href="@{'/blog'(page=${blogList.number + 1}, keySearch = ${keySearch}, cateId = ${cateId})}"
+       th:if="${blogList.hasNext()}">Next</a>
+</p>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

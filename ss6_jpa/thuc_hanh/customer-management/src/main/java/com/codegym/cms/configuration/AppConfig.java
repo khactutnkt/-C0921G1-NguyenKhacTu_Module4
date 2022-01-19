@@ -1,9 +1,6 @@
 package com.codegym.cms.configuration;
 
-import com.codegym.cms.repository.CustomerRepository;
-import com.codegym.cms.repository.ICustomerRepository;
-import com.codegym.cms.service.CustomerService;
-import com.codegym.cms.service.ICustomerService;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -33,7 +31,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.codegym.cms.controller")
+@EnableJpaRepositories("com.codegym.cms.repository")
+@ComponentScan("com.codegym.cms")
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -93,9 +92,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/ss6_quan_ly_khach_hang?createDatabaseIfNotExist=true");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/cms");
         dataSource.setUsername("root");
-        dataSource.setPassword("12345678");
+        dataSource.setPassword("123456");
         return dataSource;
     }
 
@@ -111,15 +110,5 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;
-    }
-
-    @Bean
-    public ICustomerRepository customerRepository() {
-        return new CustomerRepository();
-    }
-
-    @Bean
-    public ICustomerService customerService() {
-        return new CustomerService();
     }
 }

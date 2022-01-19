@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Category list</h3>
+<p>
+    <a th:href="@{/blog/list}">
+        Back to blogs list
+    </a>
+</p>
+<p>
+    <a th:href="@{/blog/createCategory}">
+        Add new category
+    </a>
+</p>
+
+<!--<p th:text="${messInsert}" style="color: coral"></p>-->
+<!--<p th:text="${messUpdate}" style="color: coral"></p>-->
+<!--<p th:text="${messRemove}" style="color: coral"></p>-->
+
+<table id="tableList">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${categoryList}">
+        <td th:text="${category.getId()}"></td>
+        <td th:text="${category.getName()}"></td>
+        <td><a th:href="@{/blog/{id}/editCategory(id=${category.getId()})}">edit</a></td>
+        <td><a th:href="@{/blog/{id}/deleteCategory(id=${category.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

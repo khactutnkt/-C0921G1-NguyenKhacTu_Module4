@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Information</title>
+</head>
+<body>
+<form action="/book/rent" method="post" th:object="${book}">
+    <fieldset>
+        <legend>Book Information</legend>
+        <input type="hidden" name="id" th:value="${book.id}">
+        <table>
+            <tr>
+                <td>Id</td>
+                <td th:text="${book.id}"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" name="name" th:value="${book.name}">
+                </td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>
+                    <input type="text" name="email" th:value="${book.author}">
+                </td>
+            </tr>
+            <tr>
+                <td>Publishing Company</td>
+                <td>
+                    <input type="text" name="address" th:value="${book.publishingCompany}">
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>
+                    <input type="text" name="address" th:value="${book.quantity}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Rent">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+<a href="/book">Back to list</a>.
+</body>
+</html>

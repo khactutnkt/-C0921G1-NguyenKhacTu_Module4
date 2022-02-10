@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Shop</title>
+</head>
+<body>
+<div th:replace="~{layout::header}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table id="tableList">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">View and Buy</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="product:${products}">
+                    <tr>
+                        <td th:text="${product.name}"></td>
+                        <td><img th:src="${product.image}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.discount}"></td>
+                        <td><a th:href="@{/view/__${product.id}__}">View</a></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Blog List</title>
+</head>
+<body>
+<div>
+    <input id="inputSearch" type="text">
+</div>
+
+<table id="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Writer</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="blog:${blogs}">
+        <tr>
+            <td th:text="${blog.id}"></td>
+            <td th:text="${blog.name}"></td>
+            <td th:text="${blog.writer}"></td>
+            <td th:text="${blog.category.name}"></td>
+        </tr>
+    </th:block>
+
+    </tbody>
+</table>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<!--<script src="../static/jquery-3.5.1.min.js"></script>-->
+<!--<script src="../static/js/bootstrap.min.js"></script>-->
+<script type="text/javascript">
+    // $(document).ready(function () {  //DOM đã sẵn sàng - HTML đã load đầy dủ
+    //     $.ajax({
+    //         url: "http://localhost:8080/blog",
+    //         type: "GET",
+    //         dataType: "JSON",
+    //         success: function (data) {
+    //             let tr = [];
+    //             tr.push('<tr>');
+    //             tr.push('<th>Id</th>');
+    //             tr.push('<th>Name</th>');
+    //             tr.push('<th>Writer</th>');
+    //             tr.push('<th>Category</th>');
+    //             tr.push('</tr>')
+    //             for (let i = 0; i < data.length; i++) {
+    //                 tr.push('<tr>');
+    //                 tr.push('<td>' + data[i].id + '</td>');
+    //                 tr.push('<td>' + data[i].name + '</td>');
+    //                 tr.push('<td>' + data[i].writer + '</td>');
+    //                 tr.push('<td>' + data[i].category + '</td>');
+    //                 tr.push('</tr>');
+    //             }
+    //             $('#table').append($(tr.join('')));
+    //         }
+    //     })
+    // })
+
+    $("#inputSearch").keyup(function () {
+        let inputSearch = $(this).val();
+        $("table").empty();
+        $.ajax({
+            url: "http://localhost:8080/blog/search?name=" + inputSearch,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data);
+                let tr = [];
+                tr.push('<tr>');
+                tr.push('<th>Id</th>');
+                tr.push('<th>Name</th>');
+                tr.push('<th>Writer</th>');
+                tr.push('<th>Category</th>');
+                tr.push('</tr>');
+                for (let i = 0; i < data.length; i++) {
+                    tr.push('<tr>');
+                    tr.push('<td>' + data[i].id + '</td>');
+                    tr.push('<td>' + data[i].name + '</td>');
+                    tr.push('<td>' + data[i].writer + '</td>');
+                    tr.push('<td>' + data[i].category + '</td>');
+                    tr.push('</tr>');
+                }
+                $('table').append($(tr.join('')));
+            }
+        })
+    })
+
+</script>
+</html>

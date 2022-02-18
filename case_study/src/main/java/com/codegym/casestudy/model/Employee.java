@@ -1,117 +1,114 @@
 package com.codegym.casestudy.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String birthday;
-    private String idCard;
-    private Double salary;
-    private String phone;
-    private String email;
-    private String address;
-    private String username;
+    private Long employeeId;
+    private String employeeName;
+    private String employeeBirthday;
+    private String employeeIdCard;
+    private Double employeeSalary;
+    private String employeePhone;
+    private String employeeEmail;
+    private String employeeAddress;
+    private String employeeStatus;
 
-    @ManyToOne(targetEntity = Position.class)
+    @ManyToOne()
+    @JoinColumn(name = "position_id", referencedColumnName = "positionId")
     private Position position;
 
-    @ManyToOne(targetEntity = Education.class)
+    @ManyToOne
+    @JoinColumn(name = "education_id", referencedColumnName = "educationId")
     private Education education;
 
-    @ManyToOne(targetEntity = Division.class)
+    @ManyToOne
+    @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
     private Division division;
+
+    @ManyToOne
+    @JoinColumn(name = "user_username", referencedColumnName = "userId")
+    private User user;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Contract> contract;
 
     public Employee() {
     }
 
-    public Employee(String name, String birthday, String idCard, Double salary, String phone, String email, String address, String username, Position position, Education education, Division division) {
-        this.name = name;
-        this.birthday = birthday;
-        this.idCard = idCard;
-        this.salary = salary;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.username = username;
-        this.position = position;
-        this.education = education;
-        this.division = division;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public Long getId() {
-        return id;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public String getName() {
-        return name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getEmployeeBirthday() {
+        return employeeBirthday;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public void setEmployeeBirthday(String employeeBirthday) {
+        this.employeeBirthday = employeeBirthday;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public String getEmployeeIdCard() {
+        return employeeIdCard;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public void setEmployeeIdCard(String employeeIdCard) {
+        this.employeeIdCard = employeeIdCard;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public Double getEmployeeSalary() {
+        return employeeSalary;
     }
 
-    public Double getSalary() {
-        return salary;
+    public void setEmployeeSalary(Double employeeSalary) {
+        this.employeeSalary = employeeSalary;
     }
 
-    public void setSalary(Double salary) {
-        this.salary = salary;
+    public String getEmployeePhone() {
+        return employeePhone;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setEmployeePhone(String employeePhone) {
+        this.employeePhone = employeePhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getEmployeeEmail() {
+        return employeeEmail;
     }
 
-    public String getEmail() {
-        return email;
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmployeeAddress() {
+        return employeeAddress;
     }
 
-    public String getAddress() {
-        return address;
+    public void setEmployeeAddress(String employeeAddress) {
+        this.employeeAddress = employeeAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getEmployeeStatus() {
+        return employeeStatus;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmployeeStatus(String employeeStatus) {
+        this.employeeStatus = employeeStatus;
     }
 
     public Position getPosition() {
@@ -136,5 +133,21 @@ public class Employee {
 
     public void setDivision(Division division) {
         this.division = division;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 }

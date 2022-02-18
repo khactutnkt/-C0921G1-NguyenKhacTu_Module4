@@ -7,41 +7,41 @@ import java.util.List;
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private Long positionId;
+    private String positionName;
 
-    @OneToMany(mappedBy = "division")
-    private List<Employee> position;
+    @OneToMany(mappedBy = "position")
+    private List<Employee> employees;
 
     public Position() {
     }
 
-    public Position(String name, List<Employee> position) {
-        this.name = name;
-        this.position = position;
+    public Position(String positionName, List<Employee> employees) {
+        this.positionName = positionName;
+        this.employees = employees;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPositionId() {
+        return positionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
 
-    public String getName() {
-        return name;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
-    public List<Employee> getPosition() {
-        return position;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setPosition(List<Employee> position) {
-        this.position = position;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

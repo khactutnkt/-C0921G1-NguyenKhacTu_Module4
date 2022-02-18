@@ -7,9 +7,9 @@ import java.util.List;
 public class RentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private Double cost;
+    private Long rentTypeId;
+    private String rentTypeName;
+    private Double rentTypeCost;
 
     @OneToMany(mappedBy = "rentType")
     private List<Service> services;
@@ -17,34 +17,34 @@ public class RentType {
     public RentType() {
     }
 
-    public RentType(String name, Double cost, List<Service> services) {
-        this.name = name;
-        this.cost = cost;
+    public RentType(String rentTypeName, Double rentTypeCost, List<Service> services) {
+        this.rentTypeName = rentTypeName;
+        this.rentTypeCost = rentTypeCost;
         this.services = services;
     }
 
-    public Long getId() {
-        return id;
+    public Long getRentTypeId() {
+        return rentTypeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRentTypeId(Long rentTypeId) {
+        this.rentTypeId = rentTypeId;
     }
 
-    public String getName() {
-        return name;
+    public String getRentTypeName() {
+        return rentTypeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRentTypeName(String rentTypeName) {
+        this.rentTypeName = rentTypeName;
     }
 
-    public Double getCost() {
-        return cost;
+    public Double getRentTypeCost() {
+        return rentTypeCost;
     }
 
-    public void setCost(Double cost) {
-        this.cost = cost;
+    public void setRentTypeCost(Double rentTypeCost) {
+        this.rentTypeCost = rentTypeCost;
     }
 
     public List<Service> getServices() {

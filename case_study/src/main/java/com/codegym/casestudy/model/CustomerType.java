@@ -7,8 +7,8 @@ import java.util.List;
 public class CustomerType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private Long customerTypeId;
+    private String customerTypeName;
 
     @OneToMany(mappedBy = "customerType")
     private List<Customer> customers;
@@ -16,23 +16,32 @@ public class CustomerType {
     public CustomerType() {
     }
 
-    public CustomerType(String name) {
-        this.name = name;
+    public CustomerType(String customerTypeName, List<Customer> customers) {
+        this.customerTypeName = customerTypeName;
+        this.customers = customers;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCustomerTypeId() {
+        return customerTypeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerTypeId(Long customerTypeId) {
+        this.customerTypeId = customerTypeId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerTypeName() {
+        return customerTypeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerTypeName(String customerTypeName) {
+        this.customerTypeName = customerTypeName;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 }

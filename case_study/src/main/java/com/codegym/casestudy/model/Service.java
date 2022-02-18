@@ -1,113 +1,106 @@
 package com.codegym.casestudy.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private Integer area;
-    private Double cost;
-    private Integer maxPeople;
-    private String standardRoom;
-    private String description;
-    private Double pollArea;
-    private Integer numberOfFloor;
+    private Long serviceId;
+    private String serviceName;
+    private Integer serviceArea;
+    private Double serviceCost;
+    private Integer serviceMaxPeople;
+    private String serviceStandardRoom;
+    private String serviceDescription;
+    private Double servicePollArea;
+    private Integer serviceNumberOfFloor;
 
-    @ManyToOne(targetEntity = ServiceType.class)
+    @ManyToOne()
+    @JoinColumn(name = "service_type_id", referencedColumnName = "serviceTypeId")
     private ServiceType serviceType;
 
-    @ManyToOne(targetEntity = RentType.class)
+    @ManyToOne()
+    @JoinColumn(name = "rent_type_id", referencedColumnName = "rentTypeId")
     private RentType rentType;
+
+    @OneToMany(mappedBy = "service")
+    private List<Contract> contract;
 
     public Service() {
     }
 
-    public Service(String name, Integer area, Double cost, Integer maxPeople, String standardRoom, String description, Double pollArea, Integer numberOfFloor, ServiceType serviceType, RentType rentType) {
-        this.name = name;
-        this.area = area;
-        this.cost = cost;
-        this.maxPeople = maxPeople;
-        this.standardRoom = standardRoom;
-        this.description = description;
-        this.pollArea = pollArea;
-        this.numberOfFloor = numberOfFloor;
-        this.serviceType = serviceType;
-        this.rentType = rentType;
+    public Long getServiceId() {
+        return serviceId;
     }
 
-    public Long getId() {
-        return id;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public String getName() {
-        return name;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getServiceArea() {
+        return serviceArea;
     }
 
-    public Integer getArea() {
-        return area;
+    public void setServiceArea(Integer serviceArea) {
+        this.serviceArea = serviceArea;
     }
 
-    public void setArea(Integer area) {
-        this.area = area;
+    public Double getServiceCost() {
+        return serviceCost;
     }
 
-    public Double getCost() {
-        return cost;
+    public void setServiceCost(Double serviceCost) {
+        this.serviceCost = serviceCost;
     }
 
-    public void setCost(Double cost) {
-        this.cost = cost;
+    public Integer getServiceMaxPeople() {
+        return serviceMaxPeople;
     }
 
-    public Integer getMaxPeople() {
-        return maxPeople;
+    public void setServiceMaxPeople(Integer serviceMaxPeople) {
+        this.serviceMaxPeople = serviceMaxPeople;
     }
 
-    public void setMaxPeople(Integer maxPeople) {
-        this.maxPeople = maxPeople;
+    public String getServiceStandardRoom() {
+        return serviceStandardRoom;
     }
 
-    public String getStandardRoom() {
-        return standardRoom;
+    public void setServiceStandardRoom(String serviceStandardRoom) {
+        this.serviceStandardRoom = serviceStandardRoom;
     }
 
-    public void setStandardRoom(String standardRoom) {
-        this.standardRoom = standardRoom;
+    public String getServiceDescription() {
+        return serviceDescription;
     }
 
-    public String getDescription() {
-        return description;
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Double getServicePollArea() {
+        return servicePollArea;
     }
 
-    public Double getPollArea() {
-        return pollArea;
+    public void setServicePollArea(Double servicePollArea) {
+        this.servicePollArea = servicePollArea;
     }
 
-    public void setPollArea(Double pollArea) {
-        this.pollArea = pollArea;
+    public Integer getServiceNumberOfFloor() {
+        return serviceNumberOfFloor;
     }
 
-    public Integer getNumberOfFloor() {
-        return numberOfFloor;
-    }
-
-    public void setNumberOfFloor(Integer numberOfFloor) {
-        this.numberOfFloor = numberOfFloor;
+    public void setServiceNumberOfFloor(Integer serviceNumberOfFloor) {
+        this.serviceNumberOfFloor = serviceNumberOfFloor;
     }
 
     public ServiceType getServiceType() {
@@ -124,5 +117,13 @@ public class Service {
 
     public void setRentType(RentType rentType) {
         this.rentType = rentType;
+    }
+
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 }

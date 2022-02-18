@@ -3,96 +3,102 @@ package com.codegym.casestudy.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String birthday;
-    private String gender;
-    private String idCard;
-    private String phone;
-    private String email;
-    private String address;
+    private Long customerId;
+    private String customerName;
+    private String customerBirthday;
+    private String customerGender;
+    private String customerIdCard;
+    private String customerPhone;
+    private String customerEmail;
+    private String customerAddress;
+    private String customerStatus;
 
-    @ManyToOne(targetEntity = CustomerType.class)
+    @ManyToOne()
+    @JoinColumn(name = "customer_type_id", referencedColumnName = "customerTypeId")
     private CustomerType customerType;
 
-    public Customer(String name, String birthday, String gender, String idCard, String phone, String email, String address, CustomerType customerType) {
-        this.name = name;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.idCard = idCard;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.customerType = customerType;
+    @OneToMany(mappedBy = "customer")
+    private List<Contract> contract;
+
+    public Customer() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getCustomerBirthday() {
+        return customerBirthday;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setCustomerBirthday(String customerBirthday) {
+        this.customerBirthday = customerBirthday;
     }
 
-    public String getGender() {
-        return gender;
+    public String getCustomerGender() {
+        return customerGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setCustomerGender(String customerGender) {
+        this.customerGender = customerGender;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getCustomerIdCard() {
+        return customerIdCard;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setCustomerIdCard(String customerIdCard) {
+        this.customerIdCard = customerIdCard;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCustomerPhone() {
+        return customerPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public String getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(String customerStatus) {
+        this.customerStatus = customerStatus;
     }
 
     public CustomerType getCustomerType() {
@@ -101,5 +107,13 @@ public class Customer {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 }

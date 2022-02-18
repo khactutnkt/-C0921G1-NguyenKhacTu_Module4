@@ -7,8 +7,8 @@ import java.util.List;
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private Long educationId;
+    private String educationName;
 
     @OneToMany(mappedBy = "education")
     private List<Employee> employees;
@@ -16,25 +16,25 @@ public class Education {
     public Education() {
     }
 
-    public Education(String name, List<Employee> employees) {
-        this.name = name;
+    public Education(String educationName, List<Employee> employees) {
+        this.educationName = educationName;
         this.employees = employees;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEducationId() {
+        return educationId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEducationId(Long educationId) {
+        this.educationId = educationId;
     }
 
-    public String getName() {
-        return name;
+    public String getEducationName() {
+        return educationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEducationName(String educationName) {
+        this.educationName = educationName;
     }
 
     public List<Employee> getEmployees() {

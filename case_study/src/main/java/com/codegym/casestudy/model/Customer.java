@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Customer {
@@ -116,4 +117,17 @@ public class Customer {
     public void setContract(List<Contract> contract) {
         this.contract = contract;
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Customer customer = (Customer) o;
+//        return Objects.equals(customerId, customer.customerId);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(customerId);
+//    }
 }

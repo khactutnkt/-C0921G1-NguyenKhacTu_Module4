@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="list">
+    <table id="tableList" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="item:${customers}">
+            <tr>
+                <td th:text="${item.customerId}"></td>
+                <td th:text="${item.customerName}"></td>
+                <td th:text="${item.customerType.customerTypeName}"></td>
+                <td th:if="${item.customerGender.equals('1')}" th:text="Male"></td>
+                <td th:if="${item.customerGender.equals('0')}" th:text="Female"></td>
+                <td th:text="${item.customerBirthday}"></td>
+                <td th:text="${item.customerPhone}"></td>
+                <td>
+                    <button type="button" class="btn btn-info modalView" th:value="${item.customerId}">View</button>
+                    <button type="button" class="btn btn-warning"><a class="text-white"
+                                                                     th:href="@{/customer/edit/__${item.customerId}__}">Edit</a>
+                    </button>
+                    <button type="button" class="btn btn-danger modalDelete" th:value="${item.customerId}">Delete
+                    </button>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

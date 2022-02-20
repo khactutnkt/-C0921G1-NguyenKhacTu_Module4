@@ -16,6 +16,7 @@ public class Service {
     private String serviceDescription;
     private Double servicePollArea;
     private Integer serviceNumberOfFloor;
+    private String serviceStatus;
 
     @ManyToOne()
     @JoinColumn(name = "service_type_id", referencedColumnName = "serviceTypeId")
@@ -125,5 +126,13 @@ public class Service {
 
     public void setContract(List<Contract> contract) {
         this.contract = contract;
+    }
+
+    public String getServiceStatus() {
+        return serviceStatus;
+    }
+
+    public void setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
     }
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Create New Service</h3>
+<p>
+    <a th:href="@{/service}">
+        Back to Service list
+    </a>
+</p>
+
+<div id="form">
+    <form action="#" th:action="@{/service/create}" th:object="${service}"
+          method="POST" novalidate="novalidate">
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{serviceName}"/>
+        </div>
+        <div>
+            <label>Service Type</label>
+            <select th:field="*{serviceType}">
+                <option th:each="item:${serviceTypes}" th:value="${item.serviceTypeId}"  th:text="${item.serviceTypeName}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Rent Type</label>
+            <select th:field="*{rentType}">
+                <option th:each="item:${rentTypes}" th:value="${item.rentTypeId}"  th:text="${item.rentTypeName}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Area</label>
+            <input type="text" th:field="*{serviceArea}"/>
+        </div>
+        <div>
+            <label>Cost</label>
+            <input type="text" th:field="*{serviceCost}"/>
+        </div>
+        <div>
+            <label>Max Of People</label>
+            <input type="text" th:field="*{serviceMaxPeople}"/>
+        </div>
+        <div>
+            <label>Standard Room</label>
+            <input type="text" th:field="*{serviceStandardRoom}"/>
+        </div>
+        <div>
+            <label>Description</label>
+            <input type="text" th:field="*{serviceDescription}"/>
+        </div>
+        <div>
+            <label>Poll Area</label>
+            <input type="text" th:field="*{servicePollArea}"/>
+        </div>
+        <div>
+            <label>Number Of Floor</label>
+            <input type="text" th:field="*{serviceNumberOfFloor}"/>
+        </div>
+
+        <input type="submit" value="Create"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

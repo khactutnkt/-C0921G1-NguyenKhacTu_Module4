@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<H3>Delete</H3>
+<input type="hidden" th:field="${customer.customerId}">
+<table class="table table-striped">
+    <tr>
+        <td>ID</td>
+        <td th:text="${customer.customerId}"></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td th:text="${customer.customerName}"></td>
+    </tr>
+    <tr>
+        <td >Birthday</td>
+        <td th:text="${customer.customerBirthday}"></td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td th:if="${customer.customerGender.equals('1')}" th:text="Male"></td>
+        <td th:if="${customer.customerGender.equals('0')}" th:text="Female"></td>
+    </tr>
+    <tr>
+        <td>IdCard</td>
+        <td th:text="${customer.customerIdCard}"></td>
+    </tr>
+    <tr>
+        <td>Phone</td>
+        <td th:text="${customer.customerPhone}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="${customer.customerEmail}"></td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td th:text="${customer.customerAddress}"></td>
+    </tr>
+    <tr>
+        <td>Customer Type</td>
+        <td th:text="${customer.customerType.customerTypeName}"></td>
+    </tr>
+</table>
+<a type="button" class="btn btn-danger text-decoration-none"
+   th:href="@{/customer/delete/__${customer.customerId}__}">Delete</a>
+</body>
+</html>

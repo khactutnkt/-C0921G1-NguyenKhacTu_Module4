@@ -5,44 +5,141 @@
     <title>Customer List</title>
 </head>
 <body>
-<a th:href="@{/customer/create}">Create new customer</a>
 
-<table id="tableList">
-    <caption style="color: rosybrown">Customer List</caption>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Gender</th>
-        <th>Birthday</th>
-        <th>Phone</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:each="item:${customers}">
+<div class="container">
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <!--        <a class="navbar-brand">Navbar</a>-->
+            <button type="button" class="btn btn-info"><a class="text-black" th:href="@{/customer/create}">Create new
+                customer</a></button>
+            <div id="list">
+                <form class="d-flex" action="/customer">
+                    <input class="form-control me-2" name="customerNameSearch" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <select name="customerTypeSearch">
+                        <option disabled selected>Choose customer type</option>
+                        <option th:each="item : ${customerTypes}" th:value="${item.customerTypeId}"
+                                th:text="${item.customerTypeName}"></option>
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+    </nav>
+
+
+    <table id="tableList" class="table table-striped">
+        <thead>
         <tr>
-            <td th:text="${item.customerId}"></td>
-            <td th:text="${item.customerName}"></td>
-            <td th:text="${item.customerType.customerTypeName}"></td>
-            <td th:if="${item.customerGender.equals('1')}" th:text="Male"></td>
-            <td th:if="${item.customerGender.equals('0')}" th:text="Female"></td>
-            <td th:text="${item.customerBirthday}"></td>
-            <td th:text="${item.customerPhone}"></td>
-
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Phone</th>
+            <th>Action</th>
         </tr>
-    </th:block>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <th:block th:each="item:${customers}">
+            <tr>
+                <td th:text="${item.customerId}"></td>
+                <td th:text="${item.customerName}"></td>
+                <td th:text="${item.customerType.customerTypeName}"></td>
+                <td th:if="${item.customerGender.equals('1')}" th:text="Male"></td>
+                <td th:if="${item.customerGender.equals('0')}" th:text="Female"></td>
+                <td th:text="${item.customerBirthday}"></td>
+                <td th:text="${item.customerPhone}"></td>
+                <td>
+                    <button type="button" class="btn btn-info modalView" th:value="${item.customerId}">View</button>
+                    <button type="button" class="btn btn-warning">
+                        <a class="text-black" th:href="@{/customer/edit/__${item.customerId}__}">Edit</a></button>
+                    <button type="button" class="btn btn-dark modalDelete" th:value="${item.customerId}">Delete
+                    </button>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <!--</div>-->
 
-<p>
-    <a th:href="@{'/customer'(page=${customers.number - 1})}"
-       th:if="${customers.hasPrevious()}">Previos</a>
-    <span th:text="${customers.number + 1}"></span> / <span th:text="${customers.totalPages}"></span>
-    <a th:href="@{'/customer'(page=${customers.number + 1})}"
-       th:if="${customers.hasNext()}">Next</a>
-</p>
-<footer th:replace="/layout :: footer"></footer>
+    <!-- Modal-->
+    <div class="modal fade" id="modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <a th:href="@{'/customer'(page=${customers.number - 1})}"
+           th:if="${customers.hasPrevious()}">Previos</a>
+        <span th:text="${customers.number + 1}"></span> / <span th:text="${customers.totalPages}"></span>
+        <a th:href="@{'/customer'(page=${customers.number + 1})}"
+           th:if="${customers.hasNext()}">Next</a>
+    </p>
+
+
+    <footer th:replace="/layout :: footer"></footer>
+</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // hiển thị modal chứa view
+    $(document).ready(function () {
+        $(".modalView").click(function () {
+            let id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "customer/view/" + id,
+                dataType: "HTML",
+                success: function (date) {
+                    $(".modal-body").html(date);
+                    $("#modalId").modal("show")
+                }
+            })
+        })
+    })
+
+    // hiển thị modal delete
+    $(document).ready(function () {
+        $(".modalDelete").click(function () {
+            let id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "customer/showDelete/" + id,
+                dataType: "HTML",
+                success: function (date) {
+                    $(".modal-body").html(date);
+                    $("#modalId").modal("show")
+                }
+            })
+        })
+    })
+
+    // //delete
+    // $(document).ready(function () {
+    //     $(".modalDelete").click(function () {
+    //         let id = $(this).val();
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "customer/delete/" + id,
+    //             dataType: "HTML",
+    //             success: function (date) {
+    //                 $("#list").html(date);
+    //                 // $("#modalId").modal("hidden")
+    //             }
+    //         })
+    //     })
+    // })
+</script>
+
 </html>
